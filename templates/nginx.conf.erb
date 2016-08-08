@@ -30,6 +30,9 @@ server {
 server {
 
 <% if fetch(:nginx_use_ssl) %>
+  if ($host !~* ^www\.){
+   rewrite ^(.*)$ https://www.$host$1 permanent;
+  }
   listen 443;
   ssl on;
   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
